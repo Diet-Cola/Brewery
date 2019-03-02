@@ -4,7 +4,7 @@
 
 	<groupId>com.dre</groupId>
 	<artifactId>brewery</artifactId>
-	<version>1.6.1</version>
+	<version>1.6.2</version>
 	<name>Brewery</name>
 
 	<properties>
@@ -57,10 +57,6 @@
 			<url>http://nexus.hc.to/content/repositories/pub_releases</url>
 		</repository>
 		<repository>
-			<id>mcstats-repo</id>
-			<url>http://repo.mcstats.org/content/repositories/public/</url>
-		</repository>
-		<repository>
 			<id>sk89q-repo</id>
 			<url>http://maven.sk89q.com/repo/</url>
 		</repository>
@@ -106,27 +102,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.griefcraft.lwc</groupId>
-			<artifactId>LWCPlugin</artifactId>
-			<version>4.5.0-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>me.ryanhamshire</groupId>
 			<artifactId>GriefPrevention</artifactId>
 			<version>14.5.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.diddiz</groupId>
-			<artifactId>logblock</artifactId>
-			<version>1.94</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.diddiz</groupId>
-			<artifactId>questioner</artifactId>
-			<version>1.94</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
