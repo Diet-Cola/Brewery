@@ -1,7 +1,6 @@
 package com.dre.brewery;
 
 import com.dre.brewery.filedata.*;
-import com.dre.brewery.integration.LogBlockBarrel;
 import com.dre.brewery.integration.WGBarrel;
 import com.dre.brewery.integration.WGBarrelNew;
 import com.dre.brewery.integration.WGBarrelOld;
@@ -45,8 +44,6 @@ public class P extends JavaPlugin {
 	// Third Party Enabled
 	public boolean useWG; //WorldGuard
 	public WGBarrel wg;
-	public boolean useLWC; //LWC
-	public boolean useLB; //LogBlock
 	public boolean useGP; //GriefPrevention
 	public boolean hasVault; // Vault
 	public boolean useCitadel; // CivCraft/DevotedMC Citadel
@@ -174,13 +171,6 @@ public class P extends JavaPlugin {
 		Words.ignoreText.clear();
 		Words.commands = null;
 		BPlayer.drainItems.clear();
-		if (useLB) {
-			try {
-				LogBlockBarrel.clear();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 
 		// load the Config
 		try {
@@ -279,9 +269,7 @@ public class P extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		useLWC = config.getBoolean("useLWC", true) && getServer().getPluginManager().isPluginEnabled("LWC");
 		useGP = config.getBoolean("useGriefPrevention", true) && getServer().getPluginManager().isPluginEnabled("GriefPrevention");
-		useLB = config.getBoolean("useLogBlock", false) && getServer().getPluginManager().isPluginEnabled("LogBlock");
 		hasVault = getServer().getPluginManager().isPluginEnabled("Vault");
 		
 		useCitadel = config.getBoolean("useCitadel", false) && getServer().getPluginManager().isPluginEnabled("Citadel");

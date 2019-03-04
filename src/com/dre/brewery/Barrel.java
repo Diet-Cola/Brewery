@@ -24,8 +24,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.dre.brewery.integration.CitadelBarrel;
 import com.dre.brewery.integration.GriefPreventionBarrel;
-import com.dre.brewery.integration.LWCBarrel;
-import com.dre.brewery.integration.LogBlockBarrel;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -156,30 +154,6 @@ public class Barrel implements InventoryHolder {
 				}
 			}
 		}
-
-		if (event != null && P.p.useLWC) {
-			Plugin plugin = P.p.getServer().getPluginManager().getPlugin("LWC");
-			if (plugin != null) {
-
-				// If the Clicked Block was the Sign, LWC already knows and we dont need to do anything here
-				if (!isSign(event.getClickedBlock())) {
-					Block sign = getSignOfSpigot();
-					// If the Barrel does not have a Sign, it cannot be locked
-					if (!sign.equals(event.getClickedBlock())) {
-						try {
-							return LWCBarrel.checkAccess(player, sign, event, plugin);
-						} catch (Throwable e) {
-							P.p.errorLog("Failed to Check LWC for Barrel Open Permissions!");
-							P.p.errorLog("Brewery was tested with version 4.5.0 of LWC!");
-							P.p.errorLog("Disable the LWC support in the config and do /brew reload");
-							e.printStackTrace();
-							P.p.msg(player, "&cError opening Barrel, please report to an Admin!");
-							return false;
-						}
-					}
-				}
-			}
-		}
 		
 		if (event != null && P.p.useCitadel) {
 			Plugin plugin = P.p.getServer().getPluginManager().getPlugin("Citadel");
@@ -206,37 +180,7 @@ public class Barrel implements InventoryHolder {
 
 	// Ask for permission to destroy barrel, remove protection if has
 	public boolean hasPermsDestroy(Player player) {
-		if (player == null) {
-			willDestroy();
-			return true;
-		}
-		if (P.p.useLWC) {
-			try {
-				return LWCBarrel.checkDestroy(player, this);
-			} catch (Throwable e) {
-				P.p.errorLog("Failed to Check LWC for Barrel Break Permissions!");
-				P.p.errorLog("Brewery was tested with version 4.5.0 of LWC!");
-				P.p.errorLog("Disable the LWC support in the config and do /brew reload");
-				e.printStackTrace();
-				P.p.msg(player, "&cError breaking Barrel, please report to an Admin!");
-				return false;
-			}
-		}
-
 		return true;
-	}
-
-	// If something other than the Player is destroying the barrel, inform protection plugins
-	public void willDestroy() {
-		if (P.p.useLWC) {
-			try {
-				LWCBarrel.remove(this);
-			} catch (Throwable e) {
-				P.p.errorLog("Failed to Remove LWC Lock from Barrel!");
-				P.p.errorLog("Brewery was tested with version 4.5.0 of LWC!");
-				e.printStackTrace();
-			}
-		}
 	}
 
 	// player opens the barrel
@@ -272,16 +216,6 @@ public class Barrel implements InventoryHolder {
 		}
 		// reset barreltime, potions have new age
 		time = 0;
-
-		if (P.p.useLB) {
-			try {
-				LogBlockBarrel.openBarrel(player, inventory, spigot.getLocation());
-			} catch (Throwable e) {
-				P.p.errorLog("Failed to Log Barrel to LogBlock!");
-				P.p.errorLog("Brewery was tested with version 1.94 of LogBlock!");
-				e.printStackTrace();
-			}
-		}
 		player.openInventory(inventory);
 	}
 
@@ -478,15 +412,6 @@ public class Barrel implements InventoryHolder {
 				human.closeInventory();
 			}
 			ItemStack[] items = inventory.getContents();
-			if (P.p.useLB && breaker != null) {
-				try {
-					LogBlockBarrel.breakBarrel(breaker.getName(), items, spigot.getLocation());
-				} catch (Throwable e) {
-					P.p.errorLog("Failed to Log Barrel-break to LogBlock!");
-					P.p.errorLog("Brewery was tested with version 1.94 of LogBlock!");
-					e.printStackTrace();
-				}
-			}
 			for (ItemStack item : items) {
 				if (item != null) {
 					Brew brew = Brew.get(item);
@@ -968,7 +893,6 @@ public class Barrel implements InventoryHolder {
 							P.p.debugLog("Barrel at " + broken.getWorld().getName() + "/" + broken.getX() + "/" + broken.getY() + "/" + broken.getZ()
 									+ " has been destroyed unexpectedly, contents will drop");
 							// remove the barrel if it was destroyed
-							barrel.willDestroy();
 							barrel.remove(broken, null);
 						} else {
 							// Dont check this barrel again, its enough to check it once after every restart
