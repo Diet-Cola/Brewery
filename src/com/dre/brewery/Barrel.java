@@ -1,7 +1,11 @@
 
 package com.dre.brewery;
 
-import com.dre.brewery.integration.CitadelBarrel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,10 +20,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.dre.brewery.integration.CitadelBarrel;
 
 public class Barrel implements InventoryHolder {
 
