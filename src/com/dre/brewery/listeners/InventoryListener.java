@@ -6,11 +6,9 @@ import com.dre.brewery.Barrel;
 import com.dre.brewery.Brew;
 import com.dre.brewery.MCBarrel;
 import com.dre.brewery.P;
-import com.dre.brewery.integration.LogBlockBarrel;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.BrewingStand;
@@ -36,7 +34,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -168,7 +165,7 @@ public class InventoryListener implements Listener {
 					}
 
 					brewTime--; // count down.
-					stand.setBrewingTime((int) ((float) brewTime / ((float) runTime / (float) DISTILLTIME)) + 1);
+					stand.setBrewingTime((int) (brewTime / ((float) runTime / (float) DISTILLTIME)) + 1);
 
 					if (brewTime <= 1) { // Done!
 						stand.setBrewingTime(0);
@@ -386,52 +383,6 @@ public class InventoryListener implements Listener {
 	public void onInventoryPickupItem(InventoryPickupItemEvent event){
 		if (event.getItem().getPickupDelay() > 1000 && event.getItem().getItemStack().getType() == BPlayer.pukeItem) {
 			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent event) {
-		if (P.p.useLB) {
-			if (event.getInventory().getHolder() instanceof Barrel) {
-				try {
-					LogBlockBarrel.closeBarrel(event.getPlayer(), event.getInventory());
-				} catch (Exception e) {
-					P.p.errorLog("Failed to Log Barrel to LogBlock!");
-					P.p.errorLog("Brewery was tested with version 1.94 of LogBlock!");
-					e.printStackTrace();
-				}
-			}
-		}
-
-		if (!P.use1_14) return;
-
-		// Barrel Closing Sound
-		if (event.getInventory().getHolder() instanceof Barrel) {
-			Barrel barrel = ((Barrel) event.getInventory().getHolder());
-			float randPitch = (float) (Math.random() * 0.1);
-			if (barrel.isLarge()) {
-				barrel.getSpigot().getWorld().playSound(barrel.getSpigot().getLocation(), Sound.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5f, 0.5f + randPitch);
-				barrel.getSpigot().getWorld().playSound(barrel.getSpigot().getLocation(), Sound.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.2f, 0.6f + randPitch);
-			} else {
-				barrel.getSpigot().getWorld().playSound(barrel.getSpigot().getLocation(), Sound.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5f, 0.8f + randPitch);
-			}
-		}
-
-		// Check for MC Barrel
-		if (event.getInventory().getType() == InventoryType.BARREL) {
-			Inventory inv = event.getInventory();
-			for (Iterator<MCBarrel> iter = MCBarrel.openBarrels.iterator(); iter.hasNext(); ) {
-				MCBarrel barrel = iter.next();
-				if (barrel.getInventory().equals(inv)) {
-					barrel.close();
-					if (inv.getViewers().size() == 1) {
-						// Last viewer, remove Barrel from List of open Barrels
-						iter.remove();
-					}
-					return;
-				}
-			}
-			new MCBarrel(inv).close();
 		}
 	}
 }

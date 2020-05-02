@@ -5,9 +5,8 @@ import com.dre.brewery.filedata.DataSave;
 import com.dre.brewery.filedata.DataUpdater;
 import com.dre.brewery.filedata.LanguageReader;
 import com.dre.brewery.filedata.UpdateChecker;
-import com.dre.brewery.integration.LogBlockBarrel;
+
 import com.dre.brewery.integration.WGBarrel;
-import com.dre.brewery.integration.WGBarrel7;
 import com.dre.brewery.integration.WGBarrelNew;
 import com.dre.brewery.integration.WGBarrelOld;
 import com.dre.brewery.listeners.*;
@@ -52,9 +51,6 @@ public class P extends JavaPlugin {
 	// Third Party Enabled
 	public boolean useWG; //WorldGuard
 	public WGBarrel wg;
-	public boolean useLWC; //LWC
-	public boolean useLB; //LogBlock
-	public boolean useGP; //GriefPrevention
 	public boolean hasVault; // Vault
 	public boolean useCitadel; // CivCraft/DevotedMC Citadel
 
@@ -239,13 +235,6 @@ public class P extends JavaPlugin {
 		Words.ignoreText.clear();
 		Words.commands = null;
 		BPlayer.drainItems.clear();
-		if (useLB) {
-			try {
-				LogBlockBarrel.clear();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 
 		// load the Config
 		try {
@@ -339,8 +328,6 @@ public class P extends JavaPlugin {
 					wg = new WGBarrelNew();
 				} else if (wgv.startsWith("5.")) {
 					wg = new WGBarrelOld();
-				} else {
-					wg = new WGBarrel7();
 				}
 			}
 			if (wg == null) {
@@ -349,9 +336,8 @@ public class P extends JavaPlugin {
 				P.p.errorLog("Disable the WorldGuard support in the config and do /brew reload");
 			}
 		}
-		useLWC = config.getBoolean("useLWC", true) && getServer().getPluginManager().isPluginEnabled("LWC");
-		useGP = config.getBoolean("useGriefPrevention", true) && getServer().getPluginManager().isPluginEnabled("GriefPrevention");
-		useLB = config.getBoolean("useLogBlock", false) && getServer().getPluginManager().isPluginEnabled("LogBlock");
+		hasVault = getServer().getPluginManager().isPluginEnabled("Vault");
+		
 		useCitadel = config.getBoolean("useCitadel", false) && getServer().getPluginManager().isPluginEnabled("Citadel");
 		// The item util has been removed in Vault 1.7+
 		hasVault = getServer().getPluginManager().isPluginEnabled("Vault")
@@ -747,14 +733,7 @@ public class P extends JavaPlugin {
 		} else if (LegacyUtil.isFence(type)) {
 			// remove barrel and throw potions on the ground
 			Barrel barrel = Barrel.getBySpigot(block);
-			if (barrel != null) {
-				if (barrel.hasPermsDestroy(player)) {
-					barrel.remove(null, player);
-					return true;
-				} else {
-					return false;
-				}
-			}
+			barrel.remove(null, player);
 			return true;
 
 		} else if (LegacyUtil.isSign(type)) {
@@ -762,12 +741,7 @@ public class P extends JavaPlugin {
 			Barrel barrel2 = Barrel.getBySpigot(block);
 			if (barrel2 != null) {
 				if (!barrel2.isLarge()) {
-					if (barrel2.hasPermsDestroy(player)) {
-						barrel2.remove(null, player);
-						return true;
-					} else {
-						return false;
-					}
+					return true;
 				} else {
 					barrel2.destroySign();
 				}
@@ -777,11 +751,7 @@ public class P extends JavaPlugin {
 		} else if (LegacyUtil.isWoodPlanks(type) || LegacyUtil.isWoodStairs(type)){
 			Barrel barrel3 = Barrel.getByWood(block);
 			if (barrel3 != null) {
-				if (barrel3.hasPermsDestroy(player)) {
-					barrel3.remove(block, player);
-				} else {
-					return false;
-				}
+				barrel3.remove(block, player);
 			}
 		}
 		return true;
