@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dre</groupId>
@@ -142,8 +143,8 @@
 			<url>https://nexus.lichtspiele.org/repository/releases/</url>
 		</repository>
 		<repository>
-			<id>civ-jenkins</id>
-			<url>https://build.devotedmc.com/plugin/repository/everything/</url>
+			<id>civ-github-repo</id>
+			<url>https://raw.githubusercontent.com/CivClassic/artifacts/master/</url>
 		</repository>
 	</repositories>
 
@@ -248,13 +249,9 @@
 			<version>RC-17</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--<dependency>
-			Contains proprietary api that we use for integration
-			<groupId>com.dre</groupId>
-			<artifactId>ExtPluginBridge</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>-->
+		<!--<dependency> Contains proprietary api that we use for integration <groupId>com.dre</groupId> 
+			<artifactId>ExtPluginBridge</artifactId> <version>1.0</version> <scope>provided</scope> 
+			</dependency> -->
 		<dependency>
 			<groupId>net.Indyuce</groupId>
 			<artifactId>MMOLib</artifactId>
