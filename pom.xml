@@ -16,7 +16,6 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
-
 		<resources>
 			<!-- Static resources -->
 			<resource>
@@ -32,7 +31,6 @@
 				</excludes>
 			</resource>
 		</resources>
-
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -43,7 +41,6 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -70,7 +67,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -83,7 +79,6 @@
 						</goals>
 					</execution>
 				</executions>
-
 				<configuration>
 					<doctitle>Brewery - Javadocs</doctitle>
 					<windowtitle>Brewery - Javadocs</windowtitle>
@@ -249,8 +244,8 @@
 			<version>RC-17</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--<dependency> Contains proprietary api that we use for integration <groupId>com.dre</groupId> 
-			<artifactId>ExtPluginBridge</artifactId> <version>1.0</version> <scope>provided</scope> 
+		<!--<dependency> Contains proprietary api that we use for integration <groupId>com.dre</groupId>
+			<artifactId>ExtPluginBridge</artifactId> <version>1.0</version> <scope>provided</scope>
 			</dependency> -->
 		<dependency>
 			<groupId>net.Indyuce</groupId>
@@ -313,4 +308,5 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
 </project>
