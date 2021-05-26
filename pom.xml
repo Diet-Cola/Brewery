@@ -3,19 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>com.github.civclassic</groupId>
+		<artifactId>civclassic-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
 	<groupId>com.dre</groupId>
 	<artifactId>Brewery</artifactId>
 	<version>3.0</version>
 	<name>Brewery</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>test</testSourceDirectory>
 		<resources>
 			<!-- Static resources -->
 			<resource>
@@ -34,24 +33,10 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.1</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
 						<configuration>
 							<artifactSet>
 								<includes>
@@ -144,7 +129,7 @@
 		<dependency>
 			<groupId>com.destroystokyo.paper</groupId>
 			<artifactId>paper-api</artifactId>
-			<version>1.16.4-R0.1-SNAPSHOT</version>
+			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -158,6 +143,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<!-- https://mvnrepository.com/artifact/net.milkbowl.vault/VaultAPI -->
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>VaultAPI</artifactId>
 			<version>1.6</version>
