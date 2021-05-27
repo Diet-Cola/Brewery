@@ -15,21 +15,6 @@
 	<name>Brewery</name>
 
 	<build>
-		<resources>
-			<!-- Static resources -->
-			<resource>
-				<filtering>true</filtering>
-				<directory>${project.basedir}/resources</directory>
-				<includes>
-					<include>**/*.yml</include>
-					<include>**/*.txt</include>
-				</includes>
-				<excludes>
-					<exclude>target/**</exclude>
-					<exclude>.travis.yml</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
