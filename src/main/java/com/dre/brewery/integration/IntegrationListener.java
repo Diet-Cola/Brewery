@@ -7,6 +7,7 @@ import com.dre.brewery.api.events.barrel.BarrelDestroyEvent;
 import com.dre.brewery.api.events.barrel.BarrelRemoveEvent;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.integration.barrel.BlocklockerBarrel;
+import com.dre.brewery.integration.barrel.CitadelBarrel;
 import com.dre.brewery.integration.barrel.GriefPreventionBarrel;
 import com.dre.brewery.integration.barrel.LWCBarrel;
 import com.dre.brewery.integration.barrel.LogBlockBarrel;
@@ -146,6 +147,32 @@ public class IntegrationListener implements Listener {
 							return;
 						}
 					}
+				}
+			}
+		}
+		
+		if (BConfig.useCitadel) {
+			if (P.p.getServer().getPluginManager().isPluginEnabled("Citadel")) {
+				try {
+					if (!CitadelBarrel.checkAccess(event)) {
+						P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+						event.setCancelled(true);
+						return;
+					}
+				} catch (Throwable e) {
+					event.setCancelled(true);
+					P.p.errorLog("Failed to Check Citadel for Barrel Open Permissions!");
+					P.p.errorLog("Brewery was tested with Citadel v4.1.1");
+					P.p.errorLog("Disable the Citadel support in the config and do /brew reload");
+					e.printStackTrace();
+					Player player = event.getPlayer();
+					if (player.hasPermission("brewery.admin") || player.hasPermission("brewery.mod")) {
+						P.p.msg(player, "&Citadel check Error, Brewery was tested with Citadel up to v4.1.1");
+						P.p.msg(player, "&cSet &7useCitadel: false &cin the config and /brew reload");
+					} else {
+						P.p.msg(player, "&cError opening Barrel, please report to an Admin!");
+					}
+					return;
 				}
 			}
 		}
