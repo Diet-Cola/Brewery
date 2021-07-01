@@ -12,7 +12,6 @@ import com.dre.brewery.integration.barrel.WGBarrel5;
 import com.dre.brewery.integration.barrel.WGBarrel6;
 import com.dre.brewery.integration.barrel.WGBarrel7;
 import com.dre.brewery.integration.item.BreweryPluginItem;
-import com.dre.brewery.integration.item.MMOItemsPluginItem;
 import com.dre.brewery.integration.item.SlimefunPluginItem;
 import com.dre.brewery.recipe.BCauldronRecipe;
 import com.dre.brewery.recipe.BRecipe;
@@ -20,15 +19,6 @@ import com.dre.brewery.recipe.PluginItem;
 import com.dre.brewery.recipe.RecipeItem;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.SQLSync;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +27,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 public class BConfig {
 
@@ -258,7 +256,6 @@ public class BConfig {
 		}
 
 		PluginItem.registerForConfig("brewery", BreweryPluginItem::new);
-		PluginItem.registerForConfig("mmoitems", MMOItemsPluginItem::new);
 		PluginItem.registerForConfig("slimefun", SlimefunPluginItem::new);
 		PluginItem.registerForConfig("exoticgarden", SlimefunPluginItem::new);
 

@@ -245,13 +245,6 @@
 			<artifactId>ExtPluginBridge</artifactId> <version>1.0</version> <scope>provided</scope>
 			</dependency> -->
 		<dependency>
-			<!-- https://mythiccraft.io/index.php?pages/official-mythiclib-dev/ -->
-			<groupId>io.lumine</groupId>
-			<artifactId>MythicLib</artifactId>
-			<version>1.0.19</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<!-- https://github.com/ChestShop-authors/ChestShop-3/releases -->
 			<groupId>com.acrobot.chestshop</groupId>
 			<artifactId>chestshop</artifactId>
